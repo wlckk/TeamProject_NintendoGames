@@ -2,6 +2,7 @@ import streamlit as st
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 
 #Streamlite
@@ -13,7 +14,7 @@ st.set_page_config(
 
 dash = st.sidebar.radio(
     "What dashboard do you want to see ?",
-    ('Sales', 'Joao', 'Tips for your game'))
-
+    ('What happened to games?','Clash and platforms', 'Tips for your game'))
+if dash == "what happened to games?"
 if dash == 'Tips for your game'
     
