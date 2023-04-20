@@ -9,12 +9,22 @@ import matplotlib.dates as mdates
 
 #Import data
 df = pd.read_csv(r"C:\Users\louis\OneDrive\Documents\GitHub\TeamProject_NintendoGames\data.csv")
-
+#getting my code right(gabriel)
+Nintendodb = df
 #Adjust the dataframe
 #Adjust the columns of the data set (main_genre and year)
 df['year'] = df['date'].str.split(',').str[1].str.strip()
 df['genres'] = df['genres'].apply(lambda x : "[]" if type(x) != str else x)\
     .apply(lambda x : eval(x))
+
+#droping nan values when they are in both meta_score and user_score columns
+nintendo1 = Nintendodb.dropna(how="all",subset=("meta_score","user_score")).drop(labels="esrb_rating", axis=1)
+#there are values with "TBA" in date column, therefore we need to change it to nan
+# replace 'TBA' with NaN
+nintendo1['date'] = nintendo1['date'].replace('TBA', np.nan)
+# convert the 'date_column' to datetime type
+nintendo1['date'] = pd.to_datetime(nintendo1['date'], format='%b %d, %Y')
+
 
 
 #Create a main genre
@@ -48,7 +58,44 @@ dash = st.sidebar.radio(
     "What dashboard do you want to see ?",
     ('What happened to the game ?', 'Clash & Platforms', 'Tips for your game'))
 
-if dash == "what happened to games?"
+if dash == "What happened to games?":
+    st.header("What Happened to games?")
+    st.subheader("Are games getting worst as years go by?")
+    st.header("")
+    col1, col2 = st.columns(2)
+    with col2:
+        st.subheader("Do the experts agree?")
+        st.header("")
+        fig, ax = plt.subplots(1,1)
+        viz_bar1 = sns.scatterplot(data=nintendo1, x="date", y="meta_score")
+        plt.xticks(rotation=45)
+        plt.title('Customer Evaluation vs Meta score, per year')
+        st.pyplot((viz_bar1.figure))
+    with col1:
+        st.subheader("Do you notice how as we approach to more recent years, people enjoy the games less and less?")
+        fig, ax = plt.subplots(1,1)
+        viz_bar1 = sns.scatterplot(data=nintendo1, x="date", y="user_score")
+        plt.xticks(rotation=45)
+        plt.title('Customer Evaluation per year')
+        st.pyplot((viz_bar1.figure))
+    st.subheader("As we can see even there are differences between how experts(meta_score) and customers rate the game.")
+    col3, col4 = st.columns(2)    
+    with col3:
+        st.subheader("this raises the question: how different are experts rating the games relative to customers?" )
+        fig, ax = plt.subplots(1,1)
+        viz_bar2 = sns.scatterplot(data=nintendo1, x="date", y="user_score", hue="meta_score")
+        plt.xticks(rotation=45)
+        plt.title('Customer Evaluation per year')
+        st.pyplot((viz_bar2.figure))
+        st.write("the max rated game by the users over this years was:")
+        st.write(nintendo1[["title", "user_score"]].max())
+
+    with col4:
+        st.subheader("Are games for new platforms worst than the games for old platforms?")
+        fig, ax = plt.subplots(1,1)
+        viz_bar3=sns.histplot(data = nintendo1, x="platform", y="meta_score")
+        st.pyplot((viz_bar3.figure))
+    st.header()
 
 elif dash == 'Clash & Platforms'
 
