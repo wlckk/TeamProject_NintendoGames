@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.dates as mdates
 
 
-
+df_sales= pd.read_csv(r"C:\Users\Gabriel\Documents\GitHub\TeamProject_NintendoGames\TeamProject_NintendoGames\df_top.csv")
 #Import data
 df = pd.read_csv(r"C:\Users\Gabriel\Documents\GitHub\TeamProject_NintendoGames\data.csv")
 #getting my code right(gabriel)
@@ -56,7 +56,7 @@ st.set_page_config(
 
 dash = st.sidebar.radio(
     "What dashboard do you want to see ?",
-    ('What happened to games?', 'Clash & Platforms', 'Tips for your game'))
+    ('What happened to games?', 'Clash & Platforms', 'Tips for your game', "What about Sales?"))
 
 if dash == "What happened to games?":
     st.header("What Happened to games?")
@@ -186,3 +186,10 @@ elif dash == 'Tips for your game':
     
     st.subheader('What about a collaboration ?')
 
+elif dash == "What about Sales?":
+    st.header("What are the 10 best and 10 worst games ever from Nintendo?")
+    st.write(df_sales)
+    viz_bar4=sns.barplot(data=df_sales, x=df_sales["Names"], y= df_sales["total_shipped_clean"])
+    plt.xticks(rotation=45)
+    plt.title('Top 10 Sales')
+    st.pyplot((viz_bar4.figure))
