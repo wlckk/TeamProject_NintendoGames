@@ -8,7 +8,7 @@ import matplotlib.dates as mdates
 
 
 #Import data
-df = pd.read_csv(r"C:\Users\louis\OneDrive\Documents\GitHub\TeamProject_NintendoGames\data.csv")
+df = pd.read_csv(r"C:\Users\Gabriel\Documents\GitHub\TeamProject_NintendoGames\data.csv")
 #getting my code right(gabriel)
 Nintendodb = df
 #Adjust the dataframe
@@ -56,7 +56,7 @@ st.set_page_config(
 
 dash = st.sidebar.radio(
     "What dashboard do you want to see ?",
-    ('What happened to the game ?', 'Clash & Platforms', 'Tips for your game'))
+    ('What happened to games?', 'Clash & Platforms', 'Tips for your game'))
 
 if dash == "What happened to games?":
     st.header("What Happened to games?")
@@ -94,10 +94,11 @@ if dash == "What happened to games?":
         st.subheader("Are games for new platforms worst than the games for old platforms?")
         fig, ax = plt.subplots(1,1)
         viz_bar3=sns.histplot(data = nintendo1, x="platform", y="meta_score")
+        plt.xticks(rotation=45)
+        plt.title('Customer Score per platform')
         st.pyplot((viz_bar3.figure))
-    st.header()
 
-elif dash == 'Clash & Platforms'
+#elif dash == 'Clash & Platforms'
 
 elif dash == 'Tips for your game':
 
