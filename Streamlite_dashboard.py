@@ -3,6 +3,8 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.dates as mdates
+
 
 
 #Import data
@@ -46,7 +48,11 @@ dash = st.sidebar.radio(
     "What dashboard do you want to see ?",
     ('What happened to the game ?', 'Clash & Platforms', 'Tips for your game'))
 
-if dash == 'Tips for your game':
+if dash == "what happened to games?"
+
+elif dash == 'Clash & Platforms'
+
+elif dash == 'Tips for your game':
 
     start_year = st.slider('What is the first year do you want to consider ?', 1996, 2020, 2015)
     df['year'] = df['year'].apply(lambda x : float(x))
@@ -131,3 +137,4 @@ if dash == 'Tips for your game':
     st.pyplot(fig3_3)
     
     st.subheader('What about a collaboration ?')
+
